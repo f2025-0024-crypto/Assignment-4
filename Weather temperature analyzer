@@ -1,0 +1,59 @@
+#include <iostream>
+using namespace std;
+void tempInput(int(&arr)[][4],int days,int freq){
+    cout<<"Enter temp values"<<endl;
+    for(int i=0;i<days;i++){
+        cout<<"Enter value for day: "<<i+1<<endl;
+        for(int j=0;j<freq;j++){
+            cin>>arr[i][j];
+        }
+    }
+    cout<<endl;
+}
+void tempOutput(int(&arr)[][4],int days,int freq){
+    for(int i=0;i<days;i++){
+        cout<<"values for day: "<<i+1<<endl;
+        for(int j=0;j<freq;j++){
+            cout<<arr[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+}
+///Function to calculate highest and lowest temperature
+void maxandmin(int(&arr)[][4],int days,int freq){
+    int max=arr[0][0];
+    int min=arr[0][0];
+    for(int i=0;i<days;i++){
+        for(int j=0;j<freq;j++){
+            if(max<arr[i][j]){
+                max=arr[i][j];
+            }
+            if(min>arr[i][j]){
+                min=arr[i][j];
+            }
+        }
+    }
+    cout<<"Highest temperatue of week: "<<max<<endl;
+    cout<<"Lowest temperature of week: "<<min<<endl;
+}
+//Function to calculate average of each day
+void averageTemp(int(&arr)[][4], int days, int freq) {
+    for (int i = 0; i < days; i++) {
+        int sum = 0;
+        for (int j = 0; j < freq; j++) {
+            sum += arr[i][j];
+        }
+        float avg = sum / (float)freq;
+        cout << "Average temperature of day " << i + 1 << ": " << avg << endl;
+    }
+}
+int main(){
+    int days=7;
+    int freq=4;
+    int tempArr[7][4];
+    tempInput(tempArr,days,freq);
+    tempOutput(tempArr,days,freq);
+    maxandmin(tempArr,days,freq);
+    averageTemp(tempArr,days,freq);
+    return 0;
+}
