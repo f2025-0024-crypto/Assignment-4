@@ -1,0 +1,116 @@
+#include <iostream>
+#include <cstring>
+using namespace std;
+
+const int ROWS = 5;
+const int COLS = 5;
+
+// Function to input puzzle grid
+void inputPuzzle(char puzzle[ROWS][COLS]) {
+    cout << "Enter crossword puzzle (# for blocked cells):\n";
+    for (int i = 0; i < ROWS; i++) {
+        for (int j = 0; j < COLS; j++) {
+            cin >> puzzle[i][j];
+        }
+    }
+}
+
+// Function to count horizontal words (length >= 3)
+int countHorizontalWords(char puzzle[ROWS][COLS]) {
+    int count = 0;
+
+    for (int i = 0; i < ROWS; i++) {
+        int len = 0;
+        for (int j = 0; j < COLS; j++) {
+            if (puzzle[i][j] != '#')
+                len++;
+            else {
+                if (len >= 3) count++;
+                len = 0;
+            }
+        }
+        if (len >= 3) count++;
+    }
+    return count;
+}
+
+// Function to count vertical words (length >= 3)
+int countVerticalWords(char puzzle[ROWS][COLS]) {
+    int count = 0;
+
+    for (int j = 0; j < COLS; j++) {
+        int len = 0;
+        for (int i = 0; i < ROWS; i++) {
+            if (puzzle[i][j] != '#')
+                len++;
+            else {
+                if (len >= 3) count++;
+                len = 0;
+            }
+        }
+        if (len >= 3) count++;
+    }
+    return count;
+}
+
+// Function to find longest word (horizontal or vertical)
+void findLongestWord(char puzzle[ROWS][COLS]) {
+    char longest[50] = "";
+    int maxLen = 0;
+
+    // Check horizontal
+    for (int i = 0; i < ROWS; i++) {
+        char word[50];
+        int k = 0;
+
+        for (int j = 0; j <= COLS; j++) {
+            if (j < COLS && puzzle[i][j] != '#') {
+                word[k++] = puzzle[i][j];
+            } else {
+                word[k] = '\0';
+                if (k > maxLen) {
+                    maxLen = k;
+                    strcpy(longest, word);
+                }
+                k = 0;
+            }
+        }
+    }
+
+    // Check vertical
+    for (int j = 0; j < COLS; j++) {
+        char word[50];
+        int k = 0;
+
+        for (int i = 0; i <= ROWS; i++) {
+            if (i < ROWS && puzzle[i][j] != '#') {
+                word[k++] = puzzle[i][j];
+            } else {
+                word[k] = '\0';
+                if (k > maxLen) {
+                    maxLen = k;
+                    strcpy(longest, word);
+                }
+                k = 0;
+            }
+        }
+    }
+
+    cout << "Longest word: " << longest << endl;
+    cout << "Length: " << maxLen << endl;
+}
+int main() {
+    char puzzle[ROWS][COLS];
+
+    inputPuzzle(puzzle);
+
+    int hWords = countHorizontalWords(puzzle);
+    int vWords = countVerticalWords(puzzle);
+
+    cout << "\nHorizontal words (>=3 letters): " << hWords << endl;
+    cout << "Vertical words (>=3 letters): " << vWords << endl;
+
+    findLongestWord(puzzle);
+
+    return 0;
+}
