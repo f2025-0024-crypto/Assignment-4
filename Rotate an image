@@ -1,0 +1,31 @@
+#include <iostream>
+using namespace std;
+
+int main() {
+    int m = 4, n = 4;
+
+    int A[4][4] = {
+        {1, 2, 3, 4},
+        {5, 6, 7, 8},
+        {9, 10, 11, 12},
+        {13, 14, 15, 16}
+    };
+
+    int B[4][4]; // Result matrix (n x m)
+
+    // Rotate 90 degrees counterclockwise
+    for (int i = 0; i < m; i++) {
+        for (int j = 0; j < n; j++) {
+            B[n - 1 - j][i] = A[i][j];
+        }
+    }
+    cout << "Rotated Matrix (90° Counterclockwise):\n";
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < m; j++) {
+            cout << B[i][j] << " ";
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
