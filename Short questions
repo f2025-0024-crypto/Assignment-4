@@ -1,0 +1,84 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+void reverseVector(vector<int> &v) {
+    int start = 0;
+    int end = v.size() - 1;
+
+    while (start < end) {
+        int temp = v[start];
+        v[start] = v[end];
+        v[end] = temp;
+        start++;
+        end--;
+    }
+}
+
+int main() {
+
+    //  Initialize and Print Vector
+    vector<int> v1 = {10, 20, 30, 40, 50};
+
+    cout << "Printing using traditional for loop:\n";
+    for (int i = 0; i < v1.size(); i++) {
+        cout << v1[i] << " ";
+    }
+
+    cout << "\nPrinting using range-based for loop:\n";
+    for (int x : v1) {
+        cout << x << " ";
+    }
+
+    cout << "\n\n";
+
+    // User Input into Vector
+    int N;
+    cout << "Enter number of elements: ";
+    cin >> N;
+
+    vector<int> v;
+    cout << "Enter " << N << " integers:\n";
+    for (int i = 0; i < N; i++) {
+        int value;
+        cin >> value;
+        v.push_back(value);
+    }
+
+    // Find Maximum and Minimum
+    int maxVal = v[0];
+    int minVal = v[0];
+
+    for (int i = 1; i < v.size(); i++) {
+        if (v[i] > maxVal)
+            maxVal = v[i];
+        if (v[i] < minVal)
+            minVal = v[i];
+    }
+
+    cout << "Maximum element: " << maxVal << endl;
+    cout << "Minimum element: " << minVal << endl;
+
+    // Reverse the Vector
+    reverseVector(v);
+
+    cout << "Reversed vector:\n";
+    for (int x : v) {
+        cout << x << " ";
+    }
+    cout << endl;
+
+    // Count Occurrences
+    int target, count = 0;
+    cout << "Enter number to count occurrences: ";
+    cin >> target;
+
+    for (int x : v) {
+        if (x == target)
+            count++;
+    }
+
+    cout << "Occurrences of " << target << ": " << count << endl;
+
+    return 0;
+}
+Short 
