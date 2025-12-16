@@ -1,0 +1,89 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+//Remove Even Numbers 
+void removeEvenNumbers(vector<int> &v) {
+    for (int i = 0; i < v.size(); i++) {
+        if (v[i] % 2 == 0) {
+            v.erase(v.begin() + i);
+            i--; // adjust index after deletion
+        }
+    }
+}
+
+//Find Missing Element
+int findMissingElement(vector<int> &v1, vector<int> &v2) {
+    int sum1 = 0, sum2 = 0;
+
+    for (int x : v1)
+        sum1 += x;
+
+    for (int x : v2)
+        sum2 += x;
+
+    return sum1 - sum2;
+}
+
+//Check for Duplicate
+bool hasDuplicates(vector<int> v) {
+    sort(v.begin(), v.end());
+
+    for (int i = 0; i < v.size() - 1; i++) {
+        if (v[i] == v[i + 1])
+            return true;
+    }
+    return false;
+}
+
+//Count Pairs with Given Sum
+int countPairs(vector<int> &v, int target) {
+    int count = 0;
+
+    for (int i = 0; i < v.size(); i++) {
+        for (int j = i + 1; j < v.size(); j++) {
+            if (v[i] + v[j] == target)
+                count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    int n;
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    vector<int> v(n);
+    cout << "Enter elements:\n";
+    for (int i = 0; i < n; i++)
+        cin >> v[i];
+
+    removeEvenNumbers(v);
+    cout << "After removing even numbers:\n";
+    for (int x : v)
+        cout << x << " ";
+    cout << endl;
+
+    // Find missing element
+    vector<int> v1 = {1, 2, 3, 4, 5};
+    vector<int> v2 = {1, 2, 4, 5};
+    cout << "Missing element: " << findMissingElement(v1, v2) << endl;
+
+    //Check for duplicates
+    if (hasDuplicates(v))
+        cout << "Vector contains duplicates\n";
+    else
+        cout << "Vector does not contain duplicates\n";
+
+    //Count pairs with given sum
+    int target;
+    cout << "Enter target sum: ";
+    cin >> target;
+
+    cout << "Number of pairs with sum " << target << ": "
+         << countPairs(v, target) << endl;
+
+    return 0;
+}
